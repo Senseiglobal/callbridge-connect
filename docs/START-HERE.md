@@ -42,7 +42,7 @@ Upload to YouTube or Vimeo and set it to **Public**. Send Codex the link so it c
 
 1. Open [the hackathon](https://call-e.devpost.com/) and choose your existing **Edit project** entry; do not create duplicates.
 2. Use **CallBridge Connect** as the project name. The description is prepared in [DEVPOST-DRAFT.md](DEVPOST-DRAFT.md). Review it and only describe functionality shown to work.
-3. Paste the URL of the CallBridge pull request in the CALL-E public repository — not just the URL of your own repo. Codex will supply the exact PR link after creating it.
+3. Paste [this contest pull request](https://github.com/CALLE-AI/awesome-phone-call-agents/pull/511), not just your own repo URL. It is currently a draft; after the live test and video, ask Codex to update it and mark it ready for review.
 4. Add the public video URL and your CALL-E account email. Add the hosted demo address if available.
 5. Review eligibility, required fields and the rules yourself, then press the final submit button. Creating a GitHub PR does **not** submit Devpost for you.
 

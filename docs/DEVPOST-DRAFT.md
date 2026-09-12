@@ -38,7 +38,7 @@ Complete the first owned-number live test, add an opt-in CTA to Aura only with e
 
 ## Fields to complete before submitting
 
-- Public contest PR URL: supplied after PR creation.
+- Public contest PR URL: https://github.com/CALLE-AI/awesome-phone-call-agents/pull/511 (currently draft).
 - Public video URL: pending owner recording/upload.
 - CALL-E account email: owner enters privately in Devpost.
 - Hosted demo URL: pending hosting approval/verification.

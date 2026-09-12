@@ -83,16 +83,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "CallBridge turns a visitor's Talk to a human request into a consented AI phone callback with a structured handoff summary.",
+          "CallBridge turns an artist's opted-in release check-in into a consented AI callback and a structured next-action brief.",
       },
       { property: "og:title", content: "CallBridge" },
       {
         property: "og:description",
-        content: "Consented AI phone callbacks and structured handoff summaries for SaaS teams.",
+        content: "Consent-first music-release check-ins powered by CALL-E.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {

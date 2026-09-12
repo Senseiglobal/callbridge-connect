@@ -4,6 +4,8 @@ Consent-first AI phone check-ins that turn a music-release blocker into a next-a
 
 Built for the CALL-E: Your Code Is Calling challenge. The first integration example is **Aura Manager**, a music-release strategy SaaS for independent artists. The Aura website integration is proposed; this repository does not modify or publish Aura's private code.
 
+[Contest contribution PR #511](https://github.com/CALLE-AI/awesome-phone-call-agents/pull/511) — draft while live-call, hosting and video evidence are completed. A PR is not a Devpost submission.
+
 ## What works
 
 - Artist check-in request with explicit consent, release stage and release window.

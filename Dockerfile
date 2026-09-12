@@ -1,4 +1,6 @@
-FROM oven/bun:1 AS web-build
+FROM oven/bun:1 AS bun-runtime
+FROM node:22-bookworm-slim AS web-build
+COPY --from=bun-runtime /usr/local/bin/bun /usr/local/bin/bun
 WORKDIR /build
 COPY apps/typescript/callbridge-web/package.json apps/typescript/callbridge-web/bun.lock ./
 RUN bun install --frozen-lockfile
