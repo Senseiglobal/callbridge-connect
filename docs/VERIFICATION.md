@@ -10,11 +10,19 @@
 
 The test suite uses local stores and fake provider responses. These results do not prove a live telephone call or cloud Firestore deployment.
 
+## Verified on Render
+
+- Public URL: [callbridge-connect.onrender.com](https://callbridge-connect.onrender.com/).
+- Docker image built and service became live on September 12, 2026 at 22:36 Lagos time, from app commit `6e4676a`.
+- Free compute selected ($0/month); automatic deploys off. No paid resources or CALL-E credentials were added.
+- Public health response: `ok=true`, `public_demo=true`, `dry_run=true`, `api_key_configured=false`, `call_e_connected=false`.
+- Hosted browser flow: fictional create → preview → resolve passed; live calling stayed disabled; no captured browser warnings/errors.
+- Free hosting is a demo environment: idle sleep, ephemeral records, and no production availability or real-customer evidence claimed.
+
 ## Pending / not claimed
 
 - First real CALL-E call and actual structured output.
-- Public deployment and its hosted URL.
-- Docker image build/runtime: configured but not yet executed; no local Docker runtime. Hosted CI has not run, so no hosted CI success is claimed.
+- GitHub Actions verification workflow has not run successfully; the Render build above is separate from that workflow.
 - User video and Devpost final submission.
 - Real Aura website integration, automated human transfer, calendar booking, CRM/Aura writeback.
 - Real users, revenue or measured business impact.

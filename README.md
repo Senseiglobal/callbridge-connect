@@ -4,7 +4,7 @@ Consent-first AI phone check-ins that turn a creative-project blocker into a nex
 
 Built for the CALL-E: Your Code Is Calling challenge. The first integration example is **Aura Manager**, an AI workspace for creative projects. The Aura website integration is proposed; this repository does not modify or publish Aura's private code. See the [verified integration profile](docs/AURA-PROFILE.md).
 
-[Contest contribution PR #511](https://github.com/CALLE-AI/awesome-phone-call-agents/pull/511) — draft while live-call, hosting and video evidence are completed. A PR is not a Devpost submission.
+[Contest contribution PR #511](https://github.com/CALLE-AI/awesome-phone-call-agents/pull/511) — draft while live-call and video evidence are completed. A PR is not a Devpost submission.
 
 ## What works
 
@@ -20,9 +20,11 @@ Built for the CALL-E: Your Code Is Calling challenge. The first integration exam
 
 ## Try the safe public demo
 
-[Deploy the sample on Render](https://render.com/deploy?repo=https://github.com/Senseiglobal/callbridge-connect)
+[Open the hosted CallBridge demo](https://callbridge-connect.onrender.com/)
 
-Review and approve the hosting configuration in your own account. The blueprint selects a free web service with live calls disabled. Availability and account requirements depend on Render. Demo records are fictional, in memory, and reset on restart. Do not enter customer information in a public demo. Deployment is not completed merely by this link existing.
+Deployed and browser-tested on Render's Free compute plan on September 12, 2026. Choose **New check-in → Create sample check-in → Preview callback**. This is a no-call sample, not a live telephone conversation. Demo records are fictional, in memory, and reset on restart. The service sleeps when idle and may take about a minute to wake. Do not enter customer information.
+
+To deploy a separate copy, [use the Render blueprint](https://render.com/deploy?repo=https://github.com/Senseiglobal/callbridge-connect). Review the free-plan selection before approving. Availability and account requirements depend on Render.
 
 For a local container:
 

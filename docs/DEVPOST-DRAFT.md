@@ -1,6 +1,6 @@
 # CallBridge Connect — draft submission
 
-Owner review required. Do not claim a live call, hosted deployment or production Aura integration until verified. Replace the readiness note after the real test; never present preview output as evidence.
+Owner review required. The public no-call demo is deployed on Render. Do not claim a live call or production Aura integration until verified. Replace the readiness note after the real test; never present preview output as evidence of a real call.
 
 ## Elevator pitch
 
@@ -41,7 +41,7 @@ Complete the first owned-number live test, add an opt-in CTA to Aura only with e
 - Public contest PR URL: https://github.com/CALLE-AI/awesome-phone-call-agents/pull/511 (currently draft).
 - Public video URL: pending owner recording/upload.
 - CALL-E account email: owner enters privately in Devpost.
-- Hosted demo URL: pending hosting approval/verification.
+- Hosted demo URL: https://callbridge-connect.onrender.com/ — fictional no-call demo, verified September 12, 2026.
 - Real call evidence: pending consented test; include redacted run ID/result after verification.
 
-Built with: CALL-E Python SDK, Python, React, TypeScript, TanStack Start/Query/Router, Tailwind CSS, SQLite, Docker; optional Google Cloud Firestore. Only include a hosting service in the final field after actually deploying there.
+Built with: CALL-E Python SDK, Python, React, TypeScript, TanStack Start/Query/Router, Tailwind CSS, SQLite, Docker, Render; optional Google Cloud Firestore (not verified against a real cloud project).
