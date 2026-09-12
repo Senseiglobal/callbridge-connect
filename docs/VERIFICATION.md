@@ -2,7 +2,7 @@
 
 ## Verified locally
 
-- 15 Python tests: strict consent, allowlisted context, URL cleanup, masked SQLite and mocked-Firestore reads, no-network preview with live configuration, concurrent dispatch claims, repeated-click blocking, timeout uncertainty, result validation, refresh timestamps, public-demo restrictions and HTTP authentication.
+- 18 Python tests: strict consent, allowlisted context, URL cleanup, masked SQLite and mocked-Firestore reads, no-network preview with live configuration, concurrent dispatch claims, repeated-click blocking, timeout uncertainty, result validation, refresh timestamps, public-demo restrictions, HTTP authentication, creative-project profile and legacy deadline compatibility.
 - TypeScript `tsc --noEmit` passes.
 - Browser verification: create fictional sample → preview → resolve; live button disabled; sample not recorded as a real call; no captured browser errors or warnings.
 - Community repository `python scripts/validate_repository.py` passed before opening draft PR [#511](https://github.com/CALLE-AI/awesome-phone-call-agents/pull/511).
@@ -24,4 +24,4 @@ The test suite uses local stores and fake provider responses. These results do n
 
 Record the timestamp, app handoff ID, CALL-E run ID, final provider status, whether the task completed, and a redacted result screenshot. Review output against what was said. Keep raw recordings, phone numbers and transcripts out of GitHub. `evidence/private/` is ignored for private local artifacts; do not share its contents automatically.
 
-Public evidence should show the genuine result, not the sample preview. Do not claim external actions such as a booked appointment or a completed release asset unless independently verified.
+Public evidence should show the genuine result, not the sample preview. Do not claim external actions such as a booked appointment or a completed project deliverable unless independently verified.

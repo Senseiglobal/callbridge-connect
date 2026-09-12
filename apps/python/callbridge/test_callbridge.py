@@ -69,6 +69,29 @@ class CallBridgeTests(unittest.TestCase):
         safe = app.validate({**app.demo_payload(), "page_url": "https://example.org/?token=secret#private"})
         self.assertEqual(safe["page_url"], "https://example.org/")
 
+    def test_creative_project_profile_and_context(self):
+        sample = app.validate(app.demo_payload())
+        self.assertEqual(sample["context"]["project_phase"], "drafting")
+        self.assertIn("project_deadline", sample["context"])
+        self.assertNotIn("release_window", sample["context"])
+        prompt = CalleClient._goal(sample)
+        self.assertIn("creative-project workspace", prompt)
+        self.assertIn("product-support question", prompt)
+        self.assertNotIn("music-release", prompt)
+        self.assertEqual(CalleClient.preview(sample)["intent"], "project_support")
+
+    def test_legacy_deadline_alias_is_normalized_without_mutating_input(self):
+        payload = {**app.demo_payload(), "context": {"project_phase": "drafting", "release_window": "14 days"}}
+        result = app.validate(payload)
+        self.assertEqual(result["context"]["project_deadline"], "14 days")
+        self.assertNotIn("release_window", result["context"])
+        self.assertIn("release_window", payload["context"])
+
+    def test_conflicting_deadline_aliases_are_rejected(self):
+        payload = {**app.demo_payload(), "context": {"project_deadline": "7 days", "release_window": "14 days"}}
+        with self.assertRaises(ValueError):
+            app.validate(payload)
+
     def test_phone_not_exposed_by_list_detail_or_notes(self):
         self.assertNotIn("phone", self.handoff)
         self.assertNotIn("+12025550123", json.dumps(self.store.list()))

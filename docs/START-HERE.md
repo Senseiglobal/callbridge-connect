@@ -28,7 +28,7 @@ The earlier CLI login reported a cached session, but a real MCP tools check retu
 
 Tell Codex: “I am signed in to CALL-E and ready to test on my own phone.” We can walk through [the live test guide](LIVE-TEST.md) together. No one has been called during setup.
 
-You will enter your own number, confirm consent, and answer the call. Use a made-up release situation such as: “My single releases in two weeks, and I am stuck on cover artwork.” Ask for a human follow-up, give a time and timezone, then confirm the next action. The app should show the real CALL-E run ID and result after you press **Refresh CALL-E result**.
+You will enter your own number, confirm consent, and answer the call. Use a made-up project situation such as: “My short-film project is due in two weeks, and I am stuck on a storyboard.” Ask for a human follow-up, give a time and timezone, then confirm the next action. The app should show the real CALL-E run ID and result after you press **Refresh CALL-E result**.
 
 If a call fails, do not keep clicking. Bring the message back to Codex. Sample previews must never be presented as successful real calls.
 

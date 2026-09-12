@@ -25,12 +25,12 @@ calle = CalleClient()
 def demo_payload() -> dict[str, Any]:
     return {
         "business_name": "Aura Manager",
-        "visitor_name": "Demo Artist (fictional)",
+        "visitor_name": "Demo Creator (fictional)",
         "phone": "+12025550123",
-        "reason": "I am blocked on the next action for my upcoming single and want a release check-in.",
+        "reason": "I am blocked on the next action for my short-film project and want a project check-in.",
         "page_url": "https://www.auramanager.app/",
         "consent": True,
-        "context": {"project_phase": "pre-release", "release_window": "14 days", "source": "release_checkin_cta"},
+        "context": {"project_phase": "drafting", "project_deadline": "14 days", "source": "project_checkin_cta"},
     }
 
 
@@ -51,10 +51,17 @@ def validate(payload: dict[str, Any], business_name: str = "Aura Manager") -> di
     if page.scheme not in {"https", "http"} or not page.hostname or page.username or page.password:
         raise ValueError("page_url must be an HTTP(S) URL without credentials")
     context = payload.get("context", {})
-    if not isinstance(context, dict) or set(context) - {"project_phase", "release_window", "source"}:
-        raise ValueError("Only project_phase, release_window and source are permitted context")
+    if not isinstance(context, dict) or set(context) - {"project_phase", "project_deadline", "source", "release_window"}:
+        raise ValueError("Only project_phase, project_deadline and source are permitted context")
     if any(not isinstance(value, str) or len(value) > 200 for value in context.values()):
         raise ValueError("Context values must be short text (at most 200 characters)")
+    # Keep older integrations compatible without retaining release-specific assumptions.
+    context = dict(context)
+    if "release_window" in context:
+        legacy_deadline = context.pop("release_window")
+        if "project_deadline" in context and context["project_deadline"] != legacy_deadline:
+            raise ValueError("Conflicting project_deadline and legacy release_window")
+        context.setdefault("project_deadline", legacy_deadline)
     name = payload.get("business_name", business_name)
     if not isinstance(name, str) or not 1 <= len(name.strip()) <= 100:
         raise ValueError("business_name must be 1–100 characters")

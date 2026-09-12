@@ -20,7 +20,7 @@ export const Route = createFileRoute("/handoffs/new")({
       {
         name: "description",
         content:
-          "Create a consented release check-in with artist details, blocker, and release context.",
+          "Create a consented project check-in with creator details, blocker, and project context.",
       },
       { property: "og:title", content: "New handoff — CallBridge" },
       { property: "og:description", content: "Create a consented callback request in CallBridge." },
@@ -84,17 +84,17 @@ function NewHandoff() {
       consent: true,
       context: {
         project_phase: value("project_phase") || "unknown",
-        release_window: value("release_window") || "unknown",
-        source: value("source") || "release_checkin_cta",
+        project_deadline: value("project_deadline") || "unknown",
+        source: value("source") || "project_checkin_cta",
       },
     });
   }
 
   if (health.data?.public_demo) return (
     <AppShell>
-      <PageHeader title="Try a fictional release check-in" description="This public demo never calls anyone or accepts personal information. It uses an in-memory sample and resets when the service restarts." />
+      <PageHeader title="Try a fictional project check-in" description="This public demo never calls anyone or accepts personal information. It uses an in-memory sample and resets when the service restarts." />
       <section className="card-surface mt-8 space-y-4 p-6">
-        <h2 className="text-xl">An artist is stuck on cover artwork</h2>
+        <h2 className="text-xl">A creator is stuck on a storyboard</h2>
         <p>See how a check-in request becomes a structured next-action brief. All preview answers are illustrative, not real conversations.</p>
         <button className="rounded-lg bg-primary px-4 py-3 text-primary-foreground disabled:opacity-50" disabled={demo.isPending} onClick={() => demo.mutate()}>
           {demo.isPending ? "Creating sample…" : "Create sample check-in"}
@@ -107,7 +107,7 @@ function NewHandoff() {
     <AppShell>
       <PageHeader
         title="New handoff"
-        description="Capture the artist's release blocker. Creating a check-in never places a call — dispatch happens on the detail screen."
+        description="Capture the creator's project blocker. Creating a check-in never places a call — dispatch happens on the detail screen."
       />
 
       <div
@@ -135,11 +135,11 @@ function NewHandoff() {
               autoComplete="organization"
             />
           </Field>
-          <Field id="visitor_name" label="Artist name" error={errors["visitor_name"]}>
+          <Field id="visitor_name" label="Creator name" error={errors["visitor_name"]}>
             <Input
               id="visitor_name"
               name="visitor_name"
-              placeholder="Artist name"
+              placeholder="Creator name"
               autoComplete="name"
             />
           </Field>
@@ -160,14 +160,14 @@ function NewHandoff() {
           </Field>
           <Field
             id="reason"
-            label="What is blocking the next release action?"
+            label="What is blocking the next project action?"
             error={errors["reason"]}
           >
             <Textarea
               id="reason"
               name="reason"
               rows={3}
-              placeholder="I am blocked on the next action for my upcoming single."
+              placeholder="I am blocked on the next action for my short-film project."
             />
           </Field>
           <Field id="page_url" label="Source page URL" error={errors["page_url"]}>
@@ -189,7 +189,7 @@ function NewHandoff() {
               />
               <div>
                 <Label htmlFor="consent" className="font-medium">
-                  The artist consented to an AI release check-in by phone
+                  The creator consented to an AI project check-in by phone
                 </Label>
                 <p id="consent-help" className="mt-1 text-xs text-muted-foreground">
                   Required. CallBridge will not dispatch any callback without it.
@@ -209,14 +209,14 @@ function NewHandoff() {
             <legend className="px-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
               Optional context
             </legend>
-            <Field id="project_phase" label="Release stage">
-              <Input id="project_phase" name="project_phase" placeholder="pre-release" />
+            <Field id="project_phase" label="Project stage">
+              <Input id="project_phase" name="project_phase" placeholder="drafting" />
             </Field>
-            <Field id="release_window" label="Release window">
-              <Input id="release_window" name="release_window" placeholder="14 days" />
+            <Field id="project_deadline" label="Project deadline">
+              <Input id="project_deadline" name="project_deadline" placeholder="14 days" />
             </Field>
             <Field id="source" label="Source">
-              <Input id="source" name="source" placeholder="release_checkin_cta" />
+              <Input id="source" name="source" placeholder="project_checkin_cta" />
             </Field>
           </fieldset>
 

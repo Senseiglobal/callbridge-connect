@@ -7,6 +7,8 @@ export type DispatchMode = "preview" | "live";
 
 export interface HandoffContext {
   project_phase?: string;
+  project_deadline?: string;
+  /** Legacy payload alias; new requests use project_deadline. */
   release_window?: string;
   account_stage?: string;
   plan?: string;

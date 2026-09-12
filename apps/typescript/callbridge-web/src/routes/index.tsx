@@ -13,17 +13,17 @@ import type { Handoff } from "@/lib/types";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "CallBridge — Voice activation for music releases" },
+      { title: "CallBridge — Voice activation for creative projects" },
       {
         name: "description",
         content:
-          "Turn an artist's opted-in release check-in into a consented AI callback and a structured next-action brief.",
+          "Turn a creator's opted-in project check-in into a consented AI callback and a structured next-action brief.",
       },
-      { property: "og:title", content: "CallBridge — Voice activation for music releases" },
+      { property: "og:title", content: "CallBridge — Voice activation for creative projects" },
       {
         property: "og:description",
         content:
-          "Phone-native accountability and human-strategist escalation for Aura Manager artists.",
+          "Phone-native accountability and human-team follow-up for Aura Manager creators.",
       },
     ],
   }),
@@ -32,9 +32,9 @@ export const Route = createFileRoute("/")({
 
 function metricsFrom(handoffs: Handoff[]) {
   return [
-    { label: "Release check-ins", value: handoffs.length, hint: "All sources" },
+    { label: "Project check-ins", value: handoffs.length, hint: "All sources" },
     {
-      label: "Awaiting strategist",
+      label: "Awaiting team",
       value: handoffs.filter((h) => h.status === "awaiting_human").length,
       hint: "Needs an operator",
       accent: true,
@@ -62,8 +62,8 @@ function Dashboard() {
   return (
     <AppShell>
       <PageHeader
-        title="Release check-in dashboard"
-        description="Every opted-in artist check-in, the CALL-E conversation, and the next release action it uncovered."
+        title="Project check-in dashboard"
+        description="Every opted-in creator check-in, the CALL-E conversation, and the next project action it uncovered."
         action={
           <Link
             to="/handoffs/new"
@@ -114,8 +114,8 @@ function Dashboard() {
         ) : (data?.length ?? 0) === 0 ? (
           <div className="mt-4">
             <EmptyState
-              title="No release check-ins yet"
-              description="When an artist opts into a release check-in, the request will appear here."
+              title="No project check-ins yet"
+              description="When a creator opts into a project check-in, the request will appear here."
             />
           </div>
         ) : (

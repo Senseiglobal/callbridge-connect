@@ -11,7 +11,7 @@ RESULT_SCHEMA: dict[str, Any] = {
     "required": ["intent", "urgency", "deadline_risk", "human_followup_requested",
                  "preferred_callback_window", "summary", "next_step"],
     "properties": {
-        "intent": {"type": "string", "enum": ["release_strategy", "accountability_checkin",
+        "intent": {"type": "string", "enum": ["project_support", "onboarding_help", "feature_question", "accountability_checkin",
             "campaign_blocker", "growth_question", "technical_support", "subscription_question", "unknown"]},
         "urgency": {"type": "string", "enum": ["low", "medium", "high"]},
         "deadline_risk": {"type": "string"},
@@ -71,12 +71,16 @@ class CalleClient:
     def _goal(handoff: dict[str, Any]) -> str:
         context = {k: handoff[k] for k in ("business_name", "visitor_name", "reason", "context")}
         return (
-            "You are CallBridge, an AI release-check-in assistant for independent artists. "
+            "You are CallBridge, an AI callback assistant for the requesting business. "
+            "For Aura Manager, support creative projects; it is an AI creative-project workspace, "
+            "not a music-only service. Ask what the customer is trying to create or needs help with. "
             "The recipient explicitly requested this callback. At the start disclose that you are an AI, "
             "name the requesting business, and check whether now is a good time. "
-            "Ask what is blocking the next music-release action, identify deadline risk, confirm ONE "
+            "Clarify their project blocker or product-support question, identify any deadline risk, confirm ONE "
             "next action, and ask if they want a human to follow up. If yes, ask for a callback window "
             "and timezone. Do not promise a booking or that an action has been performed. "
+            "Do not invent product features, prices, plan limits, account access or support availability; "
+            "escalate questions you cannot substantiate to a human. "
             "Report only what was actually said; use 'Not provided' for unknown details. "
             "If wrong person, voicemail, opt-out, or no consent: stop, do not collect information, and "
             "report that the task was not completed. Do not ask for passwords, payments, private lyrics "
@@ -88,11 +92,11 @@ class CalleClient:
     @staticmethod
     def preview(handoff: dict[str, Any]) -> dict[str, Any]:
         return {
-            "intent": "campaign_blocker", "urgency": "medium",
-            "deadline_risk": "Example only: a release asset may be delayed.",
+            "intent": "project_support", "urgency": "medium",
+            "deadline_risk": "Example only: a project deliverable may be delayed.",
             "human_followup_requested": True,
             "preferred_callback_window": "Example only: recipient would supply a time and timezone.",
-            "summary": "SAMPLE ONLY — no conversation occurred. This illustrates an artist blocked on a release asset.",
-            "next_step": "Example: artist agrees to finish the cover artwork; an operator reviews a requested follow-up.",
+            "summary": "SAMPLE ONLY — no conversation occurred. This illustrates a creator blocked on a project deliverable.",
+            "next_step": "Example: creator agrees to finish the storyboard; an operator reviews a requested follow-up.",
             "provider_status": "preview", "completion_confidence": None, "call_id": None,
         }

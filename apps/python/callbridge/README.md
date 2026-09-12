@@ -1,6 +1,6 @@
 # CallBridge Python backend
 
-The backend for CallBridge Connect, an opted-in music-release check-in workflow using the official CALL-E Python SDK.
+The backend for CallBridge Connect, an opted-in creative-project check-in workflow using the official CALL-E Python SDK.
 
 See the [project README](../../../README.md) for the full frontend, container and deployment instructions, [live-test guide](../../../docs/LIVE-TEST.md) for explicit call setup, and [verification status](../../../docs/VERIFICATION.md) for tested versus unverified behavior.
 
@@ -38,20 +38,22 @@ Operator endpoints require the separate CALLBRIDGE_ADMIN_TOKEN bearer token when
 ```json
 {
   "business_name": "Aura Manager",
-  "visitor_name": "Demo Artist (fictional)",
+  "visitor_name": "Demo Creator (fictional)",
   "phone": "+12025550123",
-  "reason": "I am blocked on cover artwork for my upcoming single.",
+  "reason": "I am blocked on storyboard for my short-film project.",
   "page_url": "https://www.auramanager.app/",
   "consent": true,
   "context": {
-    "project_phase": "pre-release",
-    "release_window": "14 days",
-    "source": "release_checkin_cta"
+    "project_phase": "drafting",
+    "project_deadline": "14 days",
+    "source": "project_checkin_cta"
   }
 }
 ```
 
 The sample number is reserved for fiction, not a live test target. URLs lose query strings/fragments; unknown context keys are rejected. Never submit passwords, keys, private lyrics or full vault records.
+
+New requests use `project_deadline`. Older integrations may send `release_window` as a deprecated alias; the API normalizes it without rewriting stored requests and rejects conflicting deadline fields.
 
 ## Side effects, persistence and cancellation
 

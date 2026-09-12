@@ -9,10 +9,10 @@ export function baseTimeline(createdAt: string): TimelineEvent[] {
 }
 export function mockResult(_reason: string): HandoffResult {
   return {
-    intent: "campaign_blocker", urgency: "medium", human_follow_up_requested: true,
-    provider_status: "preview", deadline_risk: "Example: cover artwork may be late.",
+    intent: "project_support", urgency: "medium", human_follow_up_requested: true,
+    provider_status: "preview", deadline_risk: "Example: storyboard may be late.",
     preferred_callback_window: "Example only: recipient would supply a time and timezone.",
-    summary: "SAMPLE ONLY — no call occurred. This illustrates an artist who is blocked on cover artwork.",
-    recommended_next_step: "Example: finish the artwork and have an operator review a requested follow-up.",
+    summary: "SAMPLE ONLY — no call occurred. This illustrates a creator who is blocked on a storyboard.",
+    recommended_next_step: "Example: finish the storyboard and have an operator review a requested follow-up.",
   };
 }

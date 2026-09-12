@@ -13,13 +13,13 @@ export const Route = createFileRoute("/integrations/aura")({
       {
         name: "description",
         content:
-          "Propose a release check-in CTA for Aura Manager, connected to CallBridge with a server-to-server webhook and a consented callback payload.",
+          "Propose a project check-in CTA for Aura Manager, connected to CallBridge with a server-to-server webhook and a consented callback payload.",
       },
       { property: "og:title", content: "Aura Manager integration — CallBridge" },
       {
         property: "og:description",
         content:
-          "Webhook endpoint, example payload, and data-handling rules for Aura's phone-native release check-in.",
+          "Webhook endpoint, example payload, and data-handling rules for Aura's phone-native project check-in.",
       },
     ],
   }),
@@ -28,34 +28,34 @@ export const Route = createFileRoute("/integrations/aura")({
 
 const PAYLOAD = `{
   "business_name": "Aura Manager",
-  "visitor_name": "Demo Artist (fictional)",
+  "visitor_name": "Demo Creator (fictional)",
   "phone": "+12025550123",
-  "reason": "I am blocked on the next action for my upcoming single.",
+  "reason": "I am blocked on the next action for my short-film project.",
   "page_url": "https://www.auramanager.app/",
   "consent": true,
   "context": {
-    "project_phase": "pre-release",
-    "release_window": "14 days",
-    "source": "release_checkin_cta"
+    "project_phase": "drafting",
+    "project_deadline": "14 days",
+    "source": "project_checkin_cta"
   }
 }`;
 
 const STEPS = [
   {
-    title: "Artist opts into a release check-in",
-    body: "Aura can offer a phone check-in when an artist is blocked or wants accountability on the next release action.",
+    title: "Creator opts into a project check-in",
+    body: "Aura can offer a phone check-in when a creator is blocked or wants accountability on the next project action.",
   },
   {
     title: "Aura posts a minimal context packet",
-    body: "Aura's backend posts the artist's phone, consent, release phase, deadline window, and blocker. The browser never touches CALL-E or any credential.",
+    body: "Aura's backend posts the creator's phone, consent, project phase, deadline window, and blocker. The browser never touches CALL-E or any credential.",
   },
   {
     title: "CallBridge previews, then dispatches",
     body: "CallBridge stores the check-in in preview mode. An operator explicitly confirms before any live call.",
   },
   {
-    title: "A release action returns",
-    body: "After the consented callback, CallBridge returns the blocker, deadline risk, one next action, and whether a human strategist should follow up.",
+    title: "A project action returns",
+    body: "After the consented callback, CallBridge returns the blocker, deadline risk, one next action, and whether a human team member should follow up.",
   },
 ];
 
@@ -71,7 +71,7 @@ function AuraIntegration() {
     <AppShell>
       <PageHeader
         title="Aura Manager voice check-in"
-        description="Aura Manager is a music-release strategy SaaS for independent artists. Aura helps artists plan and execute; CallBridge adds a proposed, consented, phone-native release check-in when they need momentum or human strategy support."
+        description="Aura Manager is an AI workspace for creators, artists, and founders to develop and finish creative projects. CallBridge adds a proposed opt-in AI callback for project help or product questions, with human follow-up when requested. This is not a live human transfer."
       />
 
       <section aria-label="Workflow" className="mt-8 grid gap-3 sm:grid-cols-2">

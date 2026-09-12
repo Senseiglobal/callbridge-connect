@@ -232,7 +232,7 @@ async function http<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   createDemo: async (): Promise<Handoff> => USING_MOCK_API
-    ? mock.create({ business_name: "Aura Manager", visitor_name: "Demo Artist (fictional)", phone: "+1202555••••", reason: "Fictional example: I need help finishing my cover artwork before release.", page_url: "https://www.auramanager.app/", consent: true, context: { project_phase: "pre-release", release_window: "14 days", source: "sample_demo" } })
+    ? mock.create({ business_name: "Aura Manager", visitor_name: "Demo Creator (fictional)", phone: "+1202555••••", reason: "Fictional example: I need help finishing my storyboard before my project deadline.", page_url: "https://www.auramanager.app/", consent: true, context: { project_phase: "drafting", project_deadline: "14 days", source: "sample_demo" } })
     : normalizeHandoff(await http("/api/demo", { method: "POST", body: "{}" })),
   refreshHandoff: async (id: string): Promise<Handoff> => USING_MOCK_API ? mock.get(id)
     : normalizeHandoff(await http(`/api/handoffs/${id}/refresh`, { method: "POST", body: "{}" })),

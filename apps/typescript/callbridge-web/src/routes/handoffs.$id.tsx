@@ -212,8 +212,8 @@ function HandoffDetail() {
             </h2>
             <dl className="mt-4 space-y-3 text-sm">
               <Meta label="Consent" value={h.consent ? "Granted by visitor" : "Not granted"} />
-              <Meta label="Release stage" value={h.context.project_phase ?? "—"} />
-              <Meta label="Release window" value={h.context.release_window ?? "—"} />
+              <Meta label="Project stage" value={h.context.project_phase ?? "—"} />
+              <Meta label="Project deadline" value={h.context.project_deadline ?? h.context.release_window ?? "—"} />
               <Meta label="Source" value={h.context.source ?? "—"} mono />
               <Meta label="Dispatch mode" value={h.mode ?? "Not dispatched"} />
               <Meta label="CALL-E run ID" value={h.calle_run_id ?? "No live run"} mono />

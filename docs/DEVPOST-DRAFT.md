@@ -4,17 +4,17 @@ Owner review required. Do not claim a live call, hosted deployment or production
 
 ## Elevator pitch
 
-Turn an artist's opted-in release check-in into an AI phone conversation and a clear next-action brief, powered by CALL-E.
+Turn a creator's opted-in project check-in into an AI phone conversation and a clear next-action brief, powered by CALL-E.
 
 ## Inspiration
 
-Independent artists can have a release plan and still get stuck between planning and taking the next step. Aura Manager is a music-release strategy SaaS for those artists. We wanted to explore a phone-based check-in that can clarify a blocker and identify when human help is needed, without pretending an AI is a human strategist.
+Creative work can stall even with a project plan. Aura Manager is an AI workspace for creative projects. We wanted to explore a phone-based check-in that can clarify a blocker or product question and identify when human help is needed, without pretending an AI is a human team member.
 
 ## What it does
 
-CallBridge receives an explicitly consented check-in request with minimal release context. An operator can inspect a no-call sample preview or confirm a real call to an approved test number. The CALL-E agent asks about the blocker, deadline risk, one concrete next action, and whether the artist wants human follow-up. CallBridge displays the structured result and provider run ID for operator review.
+CallBridge receives an explicitly consented check-in request with minimal project context. An operator can inspect a no-call sample preview or confirm a real call to an approved test number. The CALL-E agent asks about the blocker, deadline risk, one concrete next action, and whether the creator wants human follow-up. CallBridge displays the structured result and provider run ID for operator review.
 
-The public demonstration is deliberately safe: fictional inputs, labelled sample outputs and no live calling. The private operator workflow is separately gated. CallBridge does not promise live human transfer, automatically book appointments, change accounts or write a release strategy back into Aura.
+The public demonstration is deliberately safe: fictional inputs, labelled sample outputs and no live calling. The private operator workflow is separately gated. CallBridge does not promise live human transfer, automatically book appointments, change accounts or write a project plan back into Aura.
 
 ## How we built it
 
@@ -26,7 +26,7 @@ The key challenge was keeping the state honest. A sample preview must never reac
 
 ## Accomplishments
 
-We built a focused consent-to-brief workflow, corrected the integration context to music-release strategy, protected the phone-number display boundary and added automated no-call tests. The reusable contribution includes setup documentation, safe defaults, deployment configuration and a clear boundary between AI conversation and human decisions.
+We built a focused consent-to-brief workflow, corrected the integration context to creative-project support, protected the phone-number display boundary and added automated no-call tests. The reusable contribution includes setup documentation, safe defaults, deployment configuration and a clear boundary between AI conversation and human decisions.
 
 ## What we learned
 
@@ -34,7 +34,7 @@ Connecting a voice API is only one part of a reliable phone workflow. Consent, s
 
 ## What's next
 
-Complete the first owned-number live test, add an opt-in CTA to Aura only with explicit approval, and run a small artist pilot. Future work includes human identity/roles, retention controls, consent verification and measuring useful follow-ups. No revenue, customer count or conversion improvement is claimed today.
+Complete the first owned-number live test, add an opt-in CTA to Aura only with explicit approval, and run a small creator pilot. Future work includes human identity/roles, retention controls, consent verification and measuring useful follow-ups. No revenue, customer count or conversion improvement is claimed today.
 
 ## Fields to complete before submitting
 
