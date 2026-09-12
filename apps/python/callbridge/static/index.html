@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CallBridge — turn human requests into helpful calls</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar"><div class="brand"><span class="brand-mark">C</span><span>CallBridge</span></div><div class="mode-pill" id="mode-pill">Preview mode · no calls</div></header>
+      <section class="hero">
+        <div><p class="eyebrow">HUMAN HANDOFF, BY PHONE</p><h1>When a visitor asks for a human, don’t lose the moment.</h1><p class="lede">CallBridge turns a “talk to a human” event into a consented AI callback and a concise handoff your team can act on.</p><button class="button secondary" id="demo-button">Load Aura demo</button></div>
+        <div class="hero-card"><div class="hero-card-label">The handoff loop</div><div class="loop"><span>Intent</span><i>→</i><span>Callback</span><i>→</i><span>Summary</span><i>→</i><span>Human</span></div><p>Aura Manager is the first integration profile. The same event contract can support other SaaS products.</p></div>
+      </section>
+      <section class="workspace">
+        <div class="panel form-panel"><div class="panel-heading"><div><p class="eyebrow">01 / REQUEST</p><h2>Visitor handoff</h2></div><span class="step-dot">01</span></div>
+          <form id="handoff-form">
+            <label>Business<input name="business_name" placeholder="Aura Manager" required /></label>
+            <label>Visitor name<input name="visitor_name" placeholder="Jordan Blake" required /></label>
+            <label>Phone number<input name="phone" placeholder="+15550101234" required /></label>
+            <label>Why are they asking for a human?<textarea name="reason" rows="3" placeholder="I want help choosing a plan before my release." required></textarea></label>
+            <label>Page or product event<input name="page_url" placeholder="https://www.auramanager.app/pricing" required /></label>
+            <label class="checkbox"><input type="checkbox" name="consent" required /> Visitor explicitly requested and consented to a phone callback.</label>
+            <button class="button primary" type="submit">Create handoff <span>↗</span></button>
+          </form>
+        </div>
+        <div class="panel results-panel"><div class="panel-heading"><div><p class="eyebrow">02 / RESOLVE</p><h2>Handoff brief</h2></div><span class="step-dot muted">02</span></div><div id="results" class="empty-state"><div class="empty-icon">◌</div><h3>No handoff yet</h3><p>Load the Aura demo or create a consented request to preview the callback flow.</p></div></div>
+      </section>
+      <footer><span>Built for SaaS teams that want human support to scale.</span><span>CALL-E · Cloud Run · Firestore</span></footer>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

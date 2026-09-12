@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+data/
+.env
+.env.*
+!.env.example
+.venv/
+node_modules/
+.output/
+.wrangler/
+.vercel/
+.submission/
+*.log
+evidence/private/

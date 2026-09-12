@@ -1,0 +1,13 @@
+# Safe public demo only. This blueprint does not enable live calls or require a CALL-E key.
+services:
+  - type: web
+    name: callbridge-connect
+    runtime: docker
+    plan: free
+    autoDeployTrigger: off
+    healthCheckPath: /healthz
+    envVars:
+      - key: CALLBRIDGE_PUBLIC_DEMO
+        value: "true"
+      - key: CALLE_DRY_RUN
+        value: "true"

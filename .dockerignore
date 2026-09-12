@@ -1,0 +1,12 @@
+.git
+.venv
+.submission
+**/node_modules
+**/.env
+**/.env.*
+**/.output
+**/.wrangler
+**/data
+**/__pycache__
+**/*.log
+evidence/private
