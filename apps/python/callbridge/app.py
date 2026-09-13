@@ -154,6 +154,12 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self) -> None:  # noqa: N802
+        try:
+            self.get_response()
+        except Exception:
+            return self.json_response({"error": "Could not load the queue. Check its configuration and try refreshing."}, HTTPStatus.SERVICE_UNAVAILABLE)
+
+    def get_response(self) -> None:
         path = urlparse(self.path).path
         if path.startswith("/api/") and not public_demo():
             try:

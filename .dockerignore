@@ -1,6 +1,7 @@
 .git
 .venv
 .submission
+.integrations
 **/node_modules
 **/.env
 **/.env.*

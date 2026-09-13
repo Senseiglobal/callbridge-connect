@@ -72,12 +72,12 @@ Once accepted by CALL-E, a call cannot be undone from this app. Close the confir
 Browser → authenticated Python API → CALL-E SDK → phone conversation → operator refresh → structured brief.
 
 - `apps/typescript/callbridge-web`: Lovable-origin React/TanStack frontend, adapted for the Python API.
-- `apps/python/callbridge`: backend, SDK boundary, SQLite and optional Firestore storage, tests.
+- `apps/python/callbridge`: backend, SDK boundary, SQLite, optional Firestore or private Aura queue adapter, tests.
 - `scripts/serve.mjs`: container gateway and private service lifecycle.
 - `render.yaml`: safe public demo deployment, no secrets required.
 - `.github/workflows/verify.yml`: backend tests, TypeScript check, frontend build and Docker smoke checks. No CALL-E credentials.
 
-Live pilot storage: SQLite requires a persistent disk and a single service instance. Firestore is optional and requires Google credentials/IAM; its real cloud deployment is not verified. The public demo is intentionally ephemeral. This is a single-operator hackathon MVP, not a production multi-tenant calling platform. Before real customers: add identity and role management, retention/deletion tooling, abuse protection, verified consent records and appropriate regional calling/recording review. Free-text input is not a secret detector; never paste secrets or private lyrics.
+Live pilot storage: SQLite requires a persistent disk and a single service instance. Firestore is optional and requires Google credentials/IAM; its real cloud deployment is not verified. The new private Aura adapter uses a dedicated queue API backed by Aura's existing database; its schema is installed and tested, but the deployed end-to-end connection and live call are still pending. See [Aura pilot setup and acceptance checklist](docs/aura-pilot-setup.md). The public demo is intentionally ephemeral and cannot access the private queue. This is a single-operator hackathon MVP, not a production multi-tenant calling platform. Before broader real-customer use: add business identity and role management, retention/deletion tooling, abuse protection, verified consent records and appropriate regional calling/recording review. Free-text input is not a secret detector; never paste secrets or private project files.
 
 Google Cloud and revenue/P&L evidence belong to the separate 90-day business competition; they are not requirements of this CALL-E entry.
 

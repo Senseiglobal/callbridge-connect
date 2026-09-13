@@ -208,4 +208,12 @@ class FirestoreStore:
 
 
 def build_store():
-    return FirestoreStore() if os.environ.get("STORAGE_BACKEND", "local").lower() == "firestore" else LocalStore()
+    backend = os.environ.get("STORAGE_BACKEND", "local").lower()
+    if backend == "aura":
+        from aura_store import AuraRemoteStore
+        return AuraRemoteStore()
+    if backend == "firestore":
+        return FirestoreStore()
+    if backend != "local":
+        raise ValueError("STORAGE_BACKEND must be local, firestore, or aura")
+    return LocalStore()
