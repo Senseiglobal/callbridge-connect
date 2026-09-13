@@ -2,7 +2,7 @@
 
 Consent-first AI phone check-ins that turn a creative-project blocker into a next-action brief.
 
-Built for the CALL-E: Your Code Is Calling challenge. The first integration example is **Aura Manager**, an AI workspace for creative projects. The Aura website integration is proposed; this repository does not modify or publish Aura's private code. See the [verified integration profile](docs/AURA-PROFILE.md).
+Built for the CALL-E: Your Code Is Calling challenge. The first pilot is **Aura Manager**, an AI workspace for creative projects. Aura's signed-in callback form and private database queue are deployed; a consented live-call test is still pending. Aura's companion changes remain in its separate private repository. See the [verified integration profile](docs/AURA-PROFILE.md).
 
 [Contest contribution PR #511](https://github.com/CALLE-AI/awesome-phone-call-agents/pull/511) — draft while live-call and video evidence are completed. A PR is not a Devpost submission.
 
@@ -77,7 +77,7 @@ Browser → authenticated Python API → CALL-E SDK → phone conversation → o
 - `render.yaml`: safe public demo deployment, no secrets required.
 - `.github/workflows/verify.yml`: backend tests, TypeScript check, frontend build and Docker smoke checks. No CALL-E credentials.
 
-Live pilot storage: SQLite requires a persistent disk and a single service instance. Firestore is optional and requires Google credentials/IAM; its real cloud deployment is not verified. The new private Aura adapter uses a dedicated queue API backed by Aura's existing database; its schema is installed and tested, but the deployed end-to-end connection and live call are still pending. See [Aura pilot setup and acceptance checklist](docs/aura-pilot-setup.md). The public demo is intentionally ephemeral and cannot access the private queue. This is a single-operator hackathon MVP, not a production multi-tenant calling platform. Before broader real-customer use: add business identity and role management, retention/deletion tooling, abuse protection, verified consent records and appropriate regional calling/recording review. Free-text input is not a secret detector; never paste secrets or private project files.
+Live pilot storage: SQLite requires a persistent disk and a single service instance. Firestore is optional and requires Google credentials/IAM; its real cloud deployment is not verified. The private Aura adapter now connects the local operator to the deployed queue backed by Aura's existing database. The signed-in request form is live; an owned-number submission and real CALL-E call still need end-to-end verification. See [Aura pilot setup and acceptance checklist](docs/aura-pilot-setup.md). The public demo is intentionally ephemeral and cannot access the private queue. This is a single-operator hackathon MVP, not a production multi-tenant calling platform. Before broader real-customer use: add business identity and role management, retention/deletion tooling, abuse protection, verified consent records and appropriate regional calling/recording review. Free-text input is not a secret detector; never paste secrets or private project files.
 
 Google Cloud and revenue/P&L evidence belong to the separate 90-day business competition; they are not requirements of this CALL-E entry.
 

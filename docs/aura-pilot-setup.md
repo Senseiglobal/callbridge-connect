@@ -2,7 +2,7 @@
 
 Updated 13 September 2026. This is the focused Aura integration, not self-service accounts for every business.
 
-## Ready in code
+## Built and connected
 
 - An Aura sign-in-protected callback API and a separate, clearly labelled AI form at `/callback`.
 - An isolated durable queue in Aura's existing database. The migration has been applied; permissions and rollback-only transition checks passed.
@@ -10,7 +10,9 @@ Updated 13 September 2026. This is the focused Aura integration, not self-servic
 - Explicit consent, masked numbers, owner-scoped status/cancellation, one active request per owner, expiring dispatch eligibility and single-claim protection.
 - 27 Python tests and 11 Aura unit/route tests passed locally. Typechecking, focused lint and Aura's production build passed. The isolated build used placeholder credentials, not real API keys; it is not a live integration test. No real call was placed.
 
-Aura source is kept in its own private repository/worktree; it is not copied into this public repository. Its deployment and enabled end-to-end workflow are still pending Vercel authorization and a consented test.
+Aura source is kept in its own private repository/worktree; it is not copied into this public repository. Its callback form is now live at https://www.auramanager.app/callback. The private local operator has successfully read the production queue with a dedicated credential. Anonymous GET and POST requests returned 401. A consented owned-number submission and real CALL-E call still need end-to-end verification; no real call has been made.
+
+Verified Aura release: `dpl_31ZZFbyeXpug6YtBEAjPUuBbXd5V` (source `ea563cf`). The previous disabled pilot release is `dpl_FyGYDZUSxRi6jyA4ZVF5BaTd2tzc`. The earlier pre-pilot production URL was `aura-manager-57wzgbj0d-auramanager.vercel.app`; retain it for an emergency rollback. The public Render sample demo remains independent.
 
 ## In plain English
 
@@ -35,7 +37,11 @@ You do not need another paid service for this pilot. Aura keeps its existing hos
 
 The Python app reads process environment variables, not `.env` files automatically. A queue token is not a CALL-E API key, an Aura login token, or a Supabase service-role key.
 
-Once Aura is deployed and the queue secret is configured, run `powershell -ExecutionPolicy Bypass -File scripts/start-aura-pilot.ps1` from this project folder. This affects only that PowerShell process; it does not change the machine's saved execution policy. The script asks for hidden secrets and starts in preview mode. The existing CallBridge frontend must be running at port 3000 and pointed at the backend on port 8080. Stop the old backend first if port 8080 is occupied. Adding `-Live` explicitly enables the live-test configuration, but still does not itself place a call. Never invoke live mode until the recipient has consented.
+The queue secret and operator code are already stored under `data/aura-pilot-credentials.xml`, encrypted for this Windows user and excluded from Git and Docker. They are not printed in chat or kept in a plaintext secret file. Do not copy this credential file to another machine expecting it to work; do not rerun the setup helper to rotate a working credential.
+
+To restart the private backend, run `powershell -ExecutionPolicy Bypass -File scripts/start-aura-pilot.ps1` from this project folder. This affects only that PowerShell process; it does not change the machine's saved execution policy. The script reuses encrypted local credentials and starts in preview mode. Without a saved credential file, it asks for hidden secrets. The CallBridge frontend must be running at port 3000 and pointed at the backend on port 8080. Stop an old backend first if port 8080 is occupied. Adding `-Live` explicitly enables the live-test configuration and privately prompts for a CALL-E key and approved number, but still does not itself place a call. Never invoke live mode until the recipient has consented.
+
+To unlock the browser console, run `powershell -ExecutionPolicy Bypass -File scripts/copy-aura-access-code.ps1`, paste into http://localhost:3000/settings and click **Unlock operator console**. This copies only the operator code to your clipboard; do not paste it into chat or the public demo. Clear the clipboard afterwards.
 
 ## Acceptance checklist
 
@@ -51,4 +57,4 @@ The contest public demo must remain `CALLBRIDGE_PUBLIC_DEMO=true` and `CALLE_DRY
 
 ## Not claimed complete
 
-Publicly enabled Aura integration, verified live call, broad customer-business accounts, CRM integrations, automated marketing and a general production SaaS are not complete. This work prioritizes a controlled end-to-end pilot for the deadline.
+A verified owned-number call, broad customer-business accounts, CRM integrations, automated marketing and a general production SaaS are not complete. This work prioritizes a controlled Aura pilot for the deadline. Existing Aura sign-in is reused; no new cross-business account platform was built.

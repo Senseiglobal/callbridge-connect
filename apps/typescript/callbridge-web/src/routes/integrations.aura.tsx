@@ -13,13 +13,13 @@ export const Route = createFileRoute("/integrations/aura")({
       {
         name: "description",
         content:
-          "Propose a project check-in CTA for Aura Manager, connected to CallBridge with a server-to-server webhook and a consented callback payload.",
+          "A signed-in Aura callback pilot with explicit consent, private request storage and operator-approved AI calls.",
       },
       { property: "og:title", content: "Aura Manager integration — CallBridge" },
       {
         property: "og:description",
         content:
-          "Webhook endpoint, example payload, and data-handling rules for Aura's phone-native project check-in.",
+          "Owner request and private queue endpoints for Aura's consented AI callback pilot.",
       },
     ],
   }),
@@ -27,40 +27,33 @@ export const Route = createFileRoute("/integrations/aura")({
 });
 
 const PAYLOAD = `{
-  "business_name": "Aura Manager",
   "visitor_name": "Demo Creator (fictional)",
   "phone": "+12025550123",
   "reason": "I am blocked on the next action for my short-film project.",
-  "page_url": "https://www.auramanager.app/",
-  "consent": true,
-  "context": {
-    "project_phase": "drafting",
-    "project_deadline": "14 days",
-    "source": "project_checkin_cta"
-  }
+  "consent": true
 }`;
 
 const STEPS = [
   {
     title: "Creator opts into a project check-in",
-    body: "Aura can offer a phone check-in when a creator is blocked or wants accountability on the next project action.",
+    body: "A signed-in Aura user enters their own approved test number and a short question, then explicitly agrees to one AI callback. This is not a human transfer.",
   },
   {
-    title: "Aura posts a minimal context packet",
-    body: "Aura's backend posts the creator's phone, consent, project phase, deadline window, and blocker. The browser never touches CALL-E or any credential.",
+    title: "Aura saves a private request",
+    body: "Aura verifies account ownership and saves the name, number, question and consent in its existing database. Users can check status and cancel before dispatch.",
   },
   {
     title: "CallBridge previews, then dispatches",
-    body: "CallBridge stores the check-in in preview mode. An operator explicitly confirms before any live call.",
+    body: "The private operator reads Aura's queue through a dedicated server credential. Preview never dials; a live call needs separate operator approval and an allowlisted number.",
   },
   {
     title: "A project action returns",
-    body: "After the consented callback, CallBridge returns the blocker, deadline risk, one next action, and whether a human team member should follow up.",
+    body: "After a confirmed CALL-E result, CallBridge saves the outcome in Aura's queue. Unknown or failed calls are marked for review, not invented as successful or automatically redialled.",
   },
 ];
 
 const NEVER_SEND = [
-  "Private or unreleased lyrics",
+  "Private or unreleased project files",
   "Passwords or login credentials",
   "API tokens, session keys, or webhook secrets",
   "Full Context Vault records of any kind",
@@ -71,8 +64,24 @@ function AuraIntegration() {
     <AppShell>
       <PageHeader
         title="Aura Manager voice check-in"
-        description="Aura Manager is an AI workspace for creators, artists, and founders to develop and finish creative projects. CallBridge adds a proposed opt-in AI callback for project help or product questions, with human follow-up when requested. This is not a live human transfer."
+        description="Aura Manager is an AI workspace for creators, artists, and founders to develop and finish creative projects. This focused pilot adds a signed-in, opt-in AI callback request and a private operator queue. Availability depends on pilot activation; a configured integration is not proof of a completed call."
       />
+
+      <div className="card-surface mt-6 p-6">
+        <p className="text-sm text-muted-foreground">
+          The public CallBridge demo uses fictional samples and cannot read private Aura requests.
+          For the pilot, use Aura's signed-in form and the private operator console. It is limited
+          to approved test numbers, not ongoing marketing.
+        </p>
+        <a
+          href="https://www.auramanager.app/callback"
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 inline-block text-sm font-medium text-primary underline"
+        >
+          Open Aura's AI callback pilot
+        </a>
+      </div>
 
       <section aria-label="Workflow" className="mt-8 grid gap-3 sm:grid-cols-2">
         {STEPS.map((step, i) => (
@@ -85,21 +94,27 @@ function AuraIntegration() {
       </section>
 
       <section className="card-surface mt-6 p-6">
-        <h2 className="text-lg">Webhook endpoint</h2>
+        <h2 className="text-lg">Two private boundaries</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          This is the proposed endpoint Aura Manager could call from its backend. Requests are
-          authenticated with an integration bearer token held on Aura's server. This is not an HMAC-signed webhook. Creation alone never places a call.
+          The owner endpoints below run on Aura's website and require sign-in. The queue endpoint is
+          server-only and requires a separate operator token. CallBridge never receives Aura's
+          database master key. Creating a request never places a call.
         </p>
         <dl className="mt-5 space-y-4">
           <EndpointRow
             method="POST"
-            path="/api/integrations/aura/handoff"
-            note="Aura's server-to-server webhook"
+            path="/api/support/callback"
+            note="Aura: signed-in, same-origin consented request"
+          />
+          <EndpointRow
+            method="GET / DELETE"
+            path="/api/support/callback"
+            note="Aura: view your own requests or cancel an unused request"
           />
           <EndpointRow
             method="POST"
-            path="/api/handoffs"
-            note="Create a handoff from the operator console"
+            path="/api/internal/callbridge"
+            note="Aura: private queue commands with a dedicated server token"
           />
           <EndpointRow method="GET" path="/api/handoffs" note="List handoffs" />
           <EndpointRow method="GET" path="/api/handoffs/:id" note="Fetch one handoff" />
@@ -114,7 +129,7 @@ function AuraIntegration() {
 
       <section className="card-surface mt-6 p-6">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
-          <h2 className="min-w-0 text-lg">Example payload</h2>
+          <h2 className="min-w-0 text-lg">Fictional request example — Aura owner API</h2>
           <CopyButton value={PAYLOAD} />
         </div>
         <pre className="mt-4 overflow-x-auto rounded-lg bg-secondary p-4 font-mono text-xs leading-relaxed">

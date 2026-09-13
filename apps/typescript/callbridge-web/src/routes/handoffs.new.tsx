@@ -90,18 +90,58 @@ function NewHandoff() {
     });
   }
 
-  if (health.data?.public_demo) return (
-    <AppShell>
-      <PageHeader title="Try a fictional project check-in" description="This public demo never calls anyone or accepts personal information. It uses an in-memory sample and resets when the service restarts." />
-      <section className="card-surface mt-8 space-y-4 p-6">
-        <h2 className="text-xl">A creator is stuck on a storyboard</h2>
-        <p>See how a check-in request becomes a structured next-action brief. All preview answers are illustrative, not real conversations.</p>
-        <button className="rounded-lg bg-primary px-4 py-3 text-primary-foreground disabled:opacity-50" disabled={demo.isPending} onClick={() => demo.mutate()}>
-          {demo.isPending ? "Creating sample…" : "Create sample check-in"}
-        </button>
-      </section>
-    </AppShell>
-  );
+  if (health.data?.storage_backend === "aura")
+    return (
+      <AppShell>
+        <PageHeader
+          title="Request a callback through Aura"
+          description="Private pilot requests come from a signed-in Aura user, with their own explicit consent."
+        />
+        <section className="card-surface mt-8 space-y-4 p-6">
+          <p>
+            Use Aura's callback form with your own approved test number. The request is saved to the
+            private queue and appears on this dashboard after refresh. Creating it does not place a
+            call.
+          </p>
+          <a
+            className="inline-block rounded-lg bg-primary px-4 py-3 text-primary-foreground"
+            href="https://www.auramanager.app/callback"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open Aura's callback form
+          </a>
+          <p className="text-sm text-muted-foreground">
+            For fictional samples, use the separate public demo. Do not put sample requests or
+            someone else's phone number into the private queue.
+          </p>
+        </section>
+      </AppShell>
+    );
+
+  if (health.data?.public_demo)
+    return (
+      <AppShell>
+        <PageHeader
+          title="Try a fictional project check-in"
+          description="This public demo never calls anyone or accepts personal information. It uses an in-memory sample and resets when the service restarts."
+        />
+        <section className="card-surface mt-8 space-y-4 p-6">
+          <h2 className="text-xl">A creator is stuck on a storyboard</h2>
+          <p>
+            See how a check-in request becomes a structured next-action brief. All preview answers
+            are illustrative, not real conversations.
+          </p>
+          <button
+            className="rounded-lg bg-primary px-4 py-3 text-primary-foreground disabled:opacity-50"
+            disabled={demo.isPending}
+            onClick={() => demo.mutate()}
+          >
+            {demo.isPending ? "Creating sample…" : "Create sample check-in"}
+          </button>
+        </section>
+      </AppShell>
+    );
 
   return (
     <AppShell>

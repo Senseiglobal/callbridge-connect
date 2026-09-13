@@ -216,10 +216,15 @@ function normalizeHandoff(input: unknown): Handoff {
 /* ------------------------------ http adapter ----------------------------- */
 
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
-  const token = typeof window !== "undefined" ? sessionStorage.getItem("callbridge-operator") : null;
+  const token =
+    typeof window !== "undefined" ? sessionStorage.getItem("callbridge-operator") : null;
   const res = await fetch(`${API_BASE_URL}${path}`, {
     ...init,
-    headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}), ...(init?.headers ?? {}) },
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(init?.headers ?? {}),
+    },
   });
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
@@ -231,11 +236,27 @@ async function http<T>(path: string, init?: RequestInit): Promise<T> {
 /* -------------------------------- client --------------------------------- */
 
 export const api = {
-  createDemo: async (): Promise<Handoff> => USING_MOCK_API
-    ? mock.create({ business_name: "Aura Manager", visitor_name: "Demo Creator (fictional)", phone: "+1202555••••", reason: "Fictional example: I need help finishing my storyboard before my project deadline.", page_url: "https://www.auramanager.app/", consent: true, context: { project_phase: "drafting", project_deadline: "14 days", source: "sample_demo" } })
-    : normalizeHandoff(await http("/api/demo", { method: "POST", body: "{}" })),
-  refreshHandoff: async (id: string): Promise<Handoff> => USING_MOCK_API ? mock.get(id)
-    : normalizeHandoff(await http(`/api/handoffs/${id}/refresh`, { method: "POST", body: "{}" })),
+  createDemo: async (): Promise<Handoff> =>
+    USING_MOCK_API
+      ? mock.create({
+          business_name: "Aura Manager",
+          visitor_name: "Demo Creator (fictional)",
+          phone: "+1202555••••",
+          reason:
+            "Fictional example: I need help finishing my storyboard before my project deadline.",
+          page_url: "https://www.auramanager.app/",
+          consent: true,
+          context: {
+            project_phase: "drafting",
+            project_deadline: "14 days",
+            source: "sample_demo",
+          },
+        })
+      : normalizeHandoff(await http("/api/demo", { method: "POST", body: "{}" })),
+  refreshHandoff: async (id: string): Promise<Handoff> =>
+    USING_MOCK_API
+      ? mock.get(id)
+      : normalizeHandoff(await http(`/api/handoffs/${id}/refresh`, { method: "POST", body: "{}" })),
   health: async (): Promise<HealthResponse> => {
     if (USING_MOCK_API) return mock.health();
     const raw = await http<Record<string, unknown>>("/healthz");
@@ -245,6 +266,7 @@ export const api = {
       public_demo: Boolean(raw["public_demo"]),
       auth_required: Boolean(raw["auth_required"]),
       api_key_configured: Boolean(raw["api_key_configured"]),
+      storage_backend: String(raw["storage_backend"] ?? "unknown"),
       call_e_connected: Boolean(raw["call_e_connected"] ?? false),
       webhook_ready: Boolean(raw["webhook_ready"]),
       version: String(raw["version"] ?? "unknown"),

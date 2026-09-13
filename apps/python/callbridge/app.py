@@ -175,6 +175,7 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/healthz":
             return self.json_response({"ok": True, "dry_run": not live_enabled(),
                 "public_demo": public_demo(), "api_key_configured": bool(os.environ.get("CALLE_API_KEY")),
+                "storage_backend": "public_demo_memory" if public_demo() else os.environ.get("STORAGE_BACKEND", "local"),
                 "call_e_connected": False, "auth_required": bool(os.environ.get("CALLBRIDGE_ADMIN_TOKEN")) and not public_demo(),
                 "webhook_ready": bool(os.environ.get("AURA_INTEGRATION_TOKEN")) and not public_demo(), "version": "0.2.0"})
         if path == "/api/handoffs":

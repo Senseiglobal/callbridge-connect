@@ -1,5 +1,5 @@
 # Interactive only. Starting this script NEVER places a call. Preview is the default.
-param([switch]$Live)
+param([switch]$Live, [switch]$CopyAccessCode)
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $pythonPath = Join-Path $projectRoot '.venv/Scripts/python.exe'
@@ -7,11 +7,23 @@ if (!(Test-Path -LiteralPath $pythonPath)) { throw 'Install the Python dependenc
 if (Get-NetTCPConnection -LocalPort 8080 -State Listen -ErrorAction SilentlyContinue) {
     throw 'Port 8080 is busy. Stop the old CallBridge backend with Ctrl+C in its terminal, then run this script again.'
 }
-$queueSecret = Read-Host 'Paste the dedicated Aura queue secret (hidden; not a database key)' -AsSecureString
-$operatorSecret = Read-Host 'Choose a different operator access code, at least 24 characters (hidden)' -AsSecureString
+$credentialPath = Join-Path $projectRoot 'data/aura-pilot-credentials.xml'
+if (Test-Path -LiteralPath $credentialPath) {
+    $savedCredentials = Import-Clixml -LiteralPath $credentialPath
+    $queueSecret = $savedCredentials.Queue
+    $operatorSecret = $savedCredentials.Operator
+    Write-Host 'Using this Windows user''s encrypted pilot credentials.'
+} else {
+    $queueSecret = Read-Host 'Paste the dedicated Aura queue secret (hidden; not a database key)' -AsSecureString
+    $operatorSecret = Read-Host 'Choose a different operator access code, at least 24 characters (hidden)' -AsSecureString
+}
 $queueToken = [System.Net.NetworkCredential]::new('', $queueSecret).Password
 $operatorToken = [System.Net.NetworkCredential]::new('', $operatorSecret).Password
 if ($queueToken.Length -lt 32 -or $operatorToken.Length -lt 24) { throw 'Queue secret must be 32+ characters and the operator code 24+ characters.' }
+if ($CopyAccessCode) {
+    Set-Clipboard -Value $operatorToken
+    Write-Host 'Operator access code copied to your clipboard. Paste only into local CallBridge Settings, then clear your clipboard.'
+}
 $variableNames = @('AURA_STORAGE_URL','AURA_STORAGE_TOKEN','CALLBRIDGE_ADMIN_TOKEN','CALLBRIDGE_PUBLIC_DEMO','CALLE_DRY_RUN','CALLE_API_KEY','CALLBRIDGE_ALLOWED_PHONES','HOST','PORT','STORAGE_BACKEND')
 $savedVariables = @{}
 foreach ($name in $variableNames) { $savedVariables[$name] = [Environment]::GetEnvironmentVariable($name, 'Process') }
@@ -40,7 +52,7 @@ try {
     Write-Host 'Use the CallBridge frontend at http://localhost:3000/settings and enter your operator access code.'
     Write-Host 'The frontend must already be running with its API set to http://127.0.0.1:8080.'
     Write-Host 'Do not use the old backend page at port 8080 or the public Render sample demo for private requests.'
-    Write-Host 'Keep this terminal open. Ctrl+C stops it; secrets are not saved to a file.'
+    Write-Host 'Keep this terminal open. Ctrl+C stops it; no plaintext secrets are written.'
     & $pythonPath (Join-Path $projectRoot 'apps/python/callbridge/app.py')
 } finally {
     foreach ($name in $variableNames) { [Environment]::SetEnvironmentVariable($name, $savedVariables[$name], 'Process') }

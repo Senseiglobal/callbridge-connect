@@ -1,7 +1,14 @@
 export type Urgency = "low" | "medium" | "high";
 
 export type HandoffStatus =
-  "requested" | "previewed" | "calling" | "completed" | "awaiting_human" | "resolved" | "failed" | "needs_review";
+  | "requested"
+  | "previewed"
+  | "calling"
+  | "completed"
+  | "awaiting_human"
+  | "resolved"
+  | "failed"
+  | "needs_review";
 
 export type DispatchMode = "preview" | "live";
 
@@ -63,6 +70,7 @@ export interface CreateHandoffInput {
 }
 
 export interface HealthResponse {
+  storage_backend?: string;
   public_demo?: boolean;
   auth_required?: boolean;
   api_key_configured?: boolean;
