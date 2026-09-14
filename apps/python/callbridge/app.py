@@ -122,6 +122,25 @@ def refresh(handoff_id: str) -> dict[str, Any]:
     return save_provider(handoff_id, calle.refresh(handoff["calle_run_id"]))
 
 
+def safe_dispatch_error(exc: Exception, response_received: bool) -> str:
+    """Record useful diagnostics without copying exception messages or credential-bearing bodies."""
+    if response_received:
+        detail = "CALL-E returned a response, but CallBridge could not finish saving it."
+    else:
+        status = getattr(exc, "status_code", None)
+        code = getattr(exc, "code", "")
+        if isinstance(status, int) and 400 <= status <= 599:
+            safe_code = code if isinstance(code, str) and re.fullmatch(r"[a-z0-9_]{1,80}", code) else "provider_error"
+            detail = f"CALL-E returned HTTP {status} ({safe_code})."
+        elif isinstance(exc, TimeoutError) or type(exc).__name__ == "CalleTimeoutError":
+            detail = "Timed out waiting for CALL-E; the call may have been accepted."
+        elif type(exc).__name__ == "CalleConnectionError":
+            detail = "CALL-E connection failed without a confirmed response."
+        else:
+            detail = "Call submission failed without a usable confirmation."
+    return detail + " Check CALL-E records before any further call; this request remains locked. No automatic retry was made."
+
+
 def dispatch(handoff_id: str, live: bool) -> dict[str, Any]:
     handoff = store.get(handoff_id)
     if not handoff:
@@ -137,11 +156,18 @@ def dispatch(handoff_id: str, live: bool) -> dict[str, Any]:
         raise ValueError("This recipient is not an approved, consented test number")
     if not store.claim(handoff_id):
         raise ValueError("This request was already dispatched or resolved. Refresh its status instead of redialing.")
+    provider_response = None
     try:
-        return save_provider(handoff_id, calle.start({**handoff, "phone": phone}))
-    except Exception:
+        provider_response = calle.start({**handoff, "phone": phone})
+        return save_provider(handoff_id, provider_response)
+    except Exception as exc:
         # The provider may have accepted a call before the connection failed.
-        store.update(handoff_id, "needs_review", error="Call submission was not confirmed. Check the CALL-E dashboard before retrying; this request is locked against duplicate calls.")
+        # Preserve an observed provider ID even if the first storage update failed.
+        run_id = (provider_response.get("id") or provider_response.get("call_id")) if isinstance(provider_response, dict) else None
+        if not isinstance(run_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,200}", run_id):
+            run_id = None
+        store.update(handoff_id, "needs_review", calle_run_id=run_id,
+                     error=safe_dispatch_error(exc, provider_response is not None))
         return store.get(handoff_id)
 
 

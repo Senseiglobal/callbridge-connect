@@ -125,6 +125,43 @@ class CallBridgeTests(unittest.TestCase):
             result = app.dispatch(self.id, True)
         self.assertEqual(result["status"], "needs_review")
         self.assertNotIn("secret", result["error"])
+        self.assertIn("Timed out", result["error"])
+        with self.assertRaises(ValueError):
+            app.dispatch(self.id, True)
+
+    def test_provider_rejection_records_only_safe_diagnostics(self):
+        error = RuntimeError("Bearer secret-customer-key private-response-body")
+        error.status_code = 422
+        error.code = "invalid_request"
+        with patch.object(self.client, "start", side_effect=error) as start:
+            result = app.dispatch(self.id, True)
+            with self.assertRaises(ValueError):
+                app.dispatch(self.id, True)
+        start.assert_called_once()
+        self.assertEqual(result["status"], "needs_review")
+        self.assertIn("HTTP 422 (invalid_request)", result["error"])
+        self.assertNotIn("secret", result["error"])
+        error.code = "unsafe header: Bearer secret"
+        self.assertNotIn("secret", app.safe_dispatch_error(error, False))
+
+    def test_observed_call_id_survives_first_storage_update_failure(self):
+        real_update = self.store.update
+        updates = []
+
+        def fail_first_update(*args, **kwargs):
+            updates.append((args, kwargs))
+            if len(updates) == 1:
+                raise RuntimeError("private storage details")
+            return real_update(*args, **kwargs)
+
+        with patch.object(self.client, "start", return_value={"id": "call_test", "status": "queued"}) as start:
+            with patch.object(self.store, "update", side_effect=fail_first_update):
+                result = app.dispatch(self.id, True)
+        start.assert_called_once()
+        self.assertEqual(result["status"], "needs_review")
+        self.assertEqual(result["calle_run_id"], "call_test")
+        self.assertIn("could not finish saving", result["error"])
+        self.assertNotIn("private storage details", result["error"])
         with self.assertRaises(ValueError):
             app.dispatch(self.id, True)
 

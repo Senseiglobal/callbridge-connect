@@ -2,9 +2,9 @@
 
 Consent-first AI phone check-ins that turn a creative-project blocker into a next-action brief.
 
-Built for the CALL-E: Your Code Is Calling challenge. The first pilot is **Aura Manager**, an AI workspace for creative projects. Aura's signed-in callback form and private database queue are deployed; a consented live-call test is still pending. Aura's companion changes remain in its separate private repository. See the [verified integration profile](docs/AURA-PROFILE.md).
+Built for the CALL-E: Your Code Is Calling challenge. The first pilot is **Aura Manager**, an AI workspace for creative projects. Aura's signed-in callback form and private database queue are deployed. On September 14, 2026, one operator-approved Aura request completed a real two-way CALL-E conversation and its structured result was saved to that same request. Aura's companion code remains in its separate private repository. See the [integration profile](docs/AURA-PROFILE.md) and [verified pilot evidence](docs/VERIFIED-AURA-CALLBACK.md).
 
-[Contest contribution PR #511](https://github.com/CALLE-AI/awesome-phone-call-agents/pull/511) — draft while live-call and video evidence are completed. A PR is not a Devpost submission.
+[Watch the 2:57 demo](https://www.youtube.com/watch?v=FKvPDZw4aMw) · [Contest contribution PR #511](https://github.com/CALLE-AI/awesome-phone-call-agents/pull/511). A GitHub PR is not a Devpost submission.
 
 ## What works
 
@@ -16,7 +16,7 @@ Built for the CALL-E: Your Code Is Calling challenge. The first pilot is **Aura 
 - Honest failure/uncertain states, provider run ID, real timestamps, masked phone displays.
 - React dashboard, request/detail screens, settings and server-to-server Aura integration contract.
 
-**Verification status:** no successful live call is claimed yet. Local tests use fake providers. Public demo results are illustrative, not customer evidence. The human follows up manually; no live transfer, account changes, calendar booking or automatic Aura writeback is implemented.
+**Verification status:** one consented, operator-approved Aura callback is verified, including an operator-triggered result refresh and durable save to the matching private request. This is not unattended production automation. Local tests use fake providers; public demo results remain fictional. The human follows up manually: no live transfer, account changes, calendar booking or creative-project writeback is implemented.
 
 ## Try the safe public demo
 
@@ -77,7 +77,7 @@ Browser → authenticated Python API → CALL-E SDK → phone conversation → o
 - `render.yaml`: safe public demo deployment, no secrets required.
 - `.github/workflows/verify.yml`: backend tests, TypeScript check, frontend build and Docker smoke checks. No CALL-E credentials.
 
-Live pilot storage: SQLite requires a persistent disk and a single service instance. Firestore is optional and requires Google credentials/IAM; its real cloud deployment is not verified. The private Aura adapter now connects the local operator to the deployed queue backed by Aura's existing database. The signed-in request form is live; an owned-number submission and real CALL-E call still need end-to-end verification. See [Aura pilot setup and acceptance checklist](docs/aura-pilot-setup.md). The public demo is intentionally ephemeral and cannot access the private queue. This is a single-operator hackathon MVP, not a production multi-tenant calling platform. Before broader real-customer use: add business identity and role management, retention/deletion tooling, abuse protection, verified consent records and appropriate regional calling/recording review. Free-text input is not a secret detector; never paste secrets or private project files.
+Live pilot storage: SQLite requires a persistent disk and a single service instance. Firestore is optional and requires Google credentials/IAM; its real cloud deployment is not verified. The private Aura adapter connects the local operator to the deployed queue backed by Aura's existing database. One fresh, consented request passed through the SDK call and saved-result path; an older uncertain request remains locked and was not retried. See [Aura pilot setup and acceptance checklist](docs/aura-pilot-setup.md). The public demo is intentionally ephemeral and cannot access the private queue. This is a single-operator hackathon MVP, not a production multi-tenant calling platform. Before broader real-customer use: add business identity and role management, retention/deletion tooling, abuse protection, verified consent records and appropriate regional calling/recording review. Free-text input is not a secret detector; never paste secrets or private project files.
 
 Google Cloud and revenue/P&L evidence belong to the separate 90-day business competition; they are not requirements of this CALL-E entry.
 

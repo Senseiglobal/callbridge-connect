@@ -18,4 +18,4 @@ The app uses the official Python SDK with `CALLE_API_KEY`; the portable skill us
 
 We would benefit from small official examples showing `calls.create`, persisted call ID, idempotency, `calls.get`, uncertain submission recovery and validated structured results. Examples should explicitly separate deterministic sample preview from real calls, and distinguish provider completion from a successfully achieved task.
 
-No call-quality, latency, conversion-rate or production-reliability claim is made: our owned-number live test is still pending.
+One operator-approved Aura SDK callback was verified on September 14, 2026, with two-way audio and a structured result persisted to the same request. See [the bounded evidence record](VERIFIED-AURA-CALLBACK.md). This does not establish a call-quality benchmark, latency guarantee, conversion rate or production reliability.

@@ -39,11 +39,24 @@ try {
     $env:HOST = '127.0.0.1'
     $env:PORT = '8080'
     $env:STORAGE_BACKEND = 'aura'
+    $calleKeyPath = Join-Path $projectRoot 'data/calle-api-key.xml'
+    if (Test-Path -LiteralPath $calleKeyPath) {
+        $apiSecret = Import-Clixml -LiteralPath $calleKeyPath
+        if ($apiSecret -isnot [System.Security.SecureString]) {
+            $apiSecret = $null
+            throw 'The saved CALL-E key is not an encrypted SecureString. No backend was started.'
+        }
+        $env:CALLE_API_KEY = [System.Net.NetworkCredential]::new('', $apiSecret).Password
+        if ([string]::IsNullOrWhiteSpace($env:CALLE_API_KEY)) { throw 'The saved CALL-E key is empty.' }
+        Write-Host 'Loaded this Windows user''s encrypted CALL-E key. This does not verify it or enable calls.'
+    }
     if ($Live) {
-        $apiSecret = Read-Host 'Paste your CALL-E API key (hidden)' -AsSecureString
+        if (!$apiSecret) {
+            $apiSecret = Read-Host 'Paste your CALL-E API key (hidden)' -AsSecureString
+            $env:CALLE_API_KEY = [System.Net.NetworkCredential]::new('', $apiSecret).Password
+        }
         $testPhone = Read-Host 'Your own consented, approved test number, with + and country code'
         if ($testPhone -notmatch '^\+[1-9]\d{7,14}$') { throw 'Enter a valid international-format number.' }
-        $env:CALLE_API_KEY = [System.Net.NetworkCredential]::new('', $apiSecret).Password
         if ([string]::IsNullOrWhiteSpace($env:CALLE_API_KEY)) { throw 'A CALL-E key is required for live mode.' }
         $env:CALLBRIDGE_ALLOWED_PHONES = $testPhone
         $env:CALLE_DRY_RUN = 'false'

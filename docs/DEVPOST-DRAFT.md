@@ -1,6 +1,6 @@
 # CallBridge Connect — draft submission
 
-Owner review required. The public no-call demo is deployed on Render. Do not claim a live call or production Aura integration until verified. Replace the readiness note after the real test; never present preview output as evidence of a real call.
+Owner review required. The public no-call demo is deployed on Render. One private, operator-approved Aura callback was verified on September 14, 2026; see [the evidence record](VERIFIED-AURA-CALLBACK.md). This is a single controlled pilot, not a production reliability claim. Never present preview output as evidence of a real call.
 
 ## Elevator pitch
 
@@ -18,7 +18,7 @@ The public demonstration is deliberately safe: fictional inputs, labelled sample
 
 ## How we built it
 
-The React/TanStack frontend began in Lovable and was adapted with Codex to a Python backend. The official CALL-E Python SDK creates calls with a result schema and stable idempotency key, then fetches the result. SQLite persists local pilot requests; optional Firestore support is included. A container packages the UI and API behind one public address. Tests use fake providers and require no telephony credentials.
+The React/TanStack frontend began in Lovable and was adapted with Codex to a Python backend. The official CALL-E Python SDK creates calls with a result schema and stable idempotency key, then fetches the result. The connected Aura pilot reuses Aura's existing sign-in and durable database through a narrow private queue API. Local SQLite and optional Firestore adapters are also included. A container packages the separate no-call sample UI and API behind one public address. Tests use fake providers and require no telephony credentials.
 
 ## Challenges
 
@@ -26,7 +26,7 @@ The key challenge was keeping the state honest. A sample preview must never reac
 
 ## Accomplishments
 
-We built a focused consent-to-brief workflow, corrected the integration context to creative-project support, protected the phone-number display boundary and added automated no-call tests. The reusable contribution includes setup documentation, safe defaults, deployment configuration and a clear boundary between AI conversation and human decisions.
+We built a focused consent-to-brief workflow, corrected the integration context to creative-project support, protected the phone-number display boundary and added automated no-call tests. A fresh Aura request led to one approved SDK call with two-way audio. An operator refresh saved the structured result to that same request, and an independent read confirmed persistence. The demonstration shows the actual request, real recorded exchange and completed status. No account limits were changed and no human appointment was booked. The reusable contribution includes setup documentation, safe defaults, deployment configuration and a clear boundary between AI conversation and human decisions.
 
 ## What we learned
 
@@ -34,14 +34,14 @@ Connecting a voice API is only one part of a reliable phone workflow. Consent, s
 
 ## What's next
 
-Complete the first owned-number live test, add an opt-in CTA to Aura only with explicit approval, and run a small creator pilot. Future work includes human identity/roles, retention controls, consent verification and measuring useful follow-ups. No revenue, customer count or conversion improvement is claimed today.
+Extend the verified single-user pilot only after further consent, operational review and reconciliation of older uncertain submissions. Future work includes broader operator roles, retention controls, consent verification and measuring useful follow-ups. No revenue, customer count, conversion improvement or general production reliability is claimed today.
 
 ## Fields to complete before submitting
 
-- Public contest PR URL: https://github.com/CALLE-AI/awesome-phone-call-agents/pull/511 (currently draft).
-- Public video URL: pending owner recording/upload.
+- Public contest PR URL: https://github.com/CALLE-AI/awesome-phone-call-agents/pull/511.
+- Publicly viewable video URL: https://www.youtube.com/watch?v=FKvPDZw4aMw (2:57).
 - CALL-E account email: owner enters privately in Devpost.
 - Hosted demo URL: https://callbridge-connect.onrender.com/ — fictional no-call demo, verified September 12, 2026.
-- Real call evidence: pending consented test; include redacted run ID/result after verification.
+- Real call evidence: [verified single Aura callback](VERIFIED-AURA-CALLBACK.md); private identifiers, raw recordings and credentials are not committed.
 
-Built with: CALL-E Python SDK, Python, React, TypeScript, TanStack Start/Query/Router, Tailwind CSS, SQLite, Docker, Render; optional Google Cloud Firestore (not verified against a real cloud project).
+Built with: CALL-E Python SDK, Python, React, TypeScript, TanStack Start/Query/Router, Tailwind CSS, SQLite, Docker, Render; Aura's existing Supabase-backed sign-in/database through its private API; optional Google Cloud Firestore (not verified against a real cloud project).

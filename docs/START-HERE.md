@@ -1,6 +1,6 @@
 # Your next steps, in plain English
 
-CallBridge is your project. Aura Manager is the first example business it could connect to. Your private Aura code has not been published or changed.
+CallBridge is your project. Aura Manager is its first connected pilot: its existing sign-in and database now support the opt-in callback flow. Aura's private source has not been published in this repository.
 
 **Deadline: Monday, September 14, 2026, 4:45 PM Lagos time** (11:45 PM Singapore), according to the [official rules](https://call-e.devpost.com/rules). Aim to finish well before that time.
 
@@ -13,35 +13,35 @@ Your public app is [CallBridge Connect](https://callbridge-connect.onrender.com/
 3. Share the public app URL with judges; do not share your Render dashboard login.
 4. No need to create another Render service. Automatic deployments are off to conserve free build usage; ask Codex to deploy a future code update when needed.
 
-That gives judges a safe app to explore. The free demo can sleep and resets sample records when restarted. We still need a real CALL-E call for the video.
+That gives judges a safe app to explore. The free demo can sleep and resets sample records when restarted. A separate private Aura callback has now been verified and recorded.
 
-## 2. Sign in to CALL-E and prepare your own phone
+## 2. Keep your calling credentials private — setup completed
 
-Open [CALL-E API keys](https://dashboard.heycall-e.com/account/api-keys) and sign in. Keep the email used for this account for your Devpost form. It may differ from your GitHub email.
+The tested private operator uses a CALL-E API key and a separate Aura queue credential. The public sample demo needs neither. Keep the email used for CALL-E for your Devpost form; it may differ from your GitHub email.
 
-Create/copy an API key when ready. Treat it like a password. **Do not paste it into this chat, GitHub, the video or the public demo.** The local helper in the next section asks for it privately.
+Treat an API key like a password. **Do not paste it into chat, GitHub, the video or the public demo.** Do not create another key or rotate working credentials just to finish this submission. For future setup, use the [private pilot guide](aura-pilot-setup.md).
 
-The earlier CLI login reported a cached session, but a real MCP tools check returned 401. A fresh browser authorization may be needed if using the CLI. The application uses the dashboard API key independently.
+CLI browser authorization and the application's SDK key are separate connections. The successful Aura test used the application SDK path.
 
-## 3. Make one real test call with us
+## 3. Review the real test — completed
 
-Tell Codex: “I am signed in to CALL-E and ready to test on my own phone.” We can walk through [the live test guide](LIVE-TEST.md) together. No one has been called during setup.
+On September 14, one fresh, approved Aura request led to a real two-way call. An operator refresh saved the structured outcome to that same request; an independent read confirmed it. See [the verification record](VERIFIED-AURA-CALLBACK.md).
 
-You will enter your own number, confirm consent, and answer the call. Use a made-up project situation such as: “My short-film project is due in two weeks, and I am stuck on a storyboard.” Ask for a human follow-up, give a time and timezone, then confirm the next action. The app should show the real CALL-E run ID and result after you press **Refresh CALL-E result**.
+This verifies one controlled pilot, not an unattended production service. The result requests human follow-up; it does not book an appointment or increase the customer's account limits.
 
-If a call fails, do not keep clicking. Bring the message back to Codex. Sample previews must never be presented as successful real calls.
+Do not repeat the call for this submission. Older uncertain attempts remain locked and must not be retried without reconciliation. Sample previews must never be presented as successful real calls.
 
-## 4. Record the short video
+## 4. Check the short video — uploaded
 
-Use [the ready-made script](DEMO-SCRIPT.md). Show the app, an actual consented call, and its real result. Keep it within three minutes. Hide your API key, access code and full phone number. Obtain permission before recording another person's voice; testing with yourself is simplest.
+The final [2:57 video](https://www.youtube.com/watch?v=FKvPDZw4aMw) shows the Aura request, actual recorded conversation and completed status. Its introductory narration is AI-generated; the phone exchange is the real test, with noise reduction and private details hidden.
 
-Upload to YouTube or Vimeo and set it to **Public**. Send Codex the link so it can be checked and added to the project materials.
+Keep the video viewable by anyone with its link, without a sign-in or permission request. It is saved in the Devpost draft. Do not replace it with the older call-only clip.
 
 ## 5. Finish the competition entry
 
 1. Open [the hackathon](https://call-e.devpost.com/) and choose your existing **Edit project** entry; do not create duplicates.
 2. Use **CallBridge Connect** as the project name. The description is prepared in [DEVPOST-DRAFT.md](DEVPOST-DRAFT.md). Review it and only describe functionality shown to work.
-3. Paste [this contest pull request](https://github.com/CALLE-AI/awesome-phone-call-agents/pull/511), not just your own repo URL. It is currently a draft; after the live test and video, ask Codex to update it and mark it ready for review.
+3. Use [this contest pull request](https://github.com/CALLE-AI/awesome-phone-call-agents/pull/511), not just your own repo URL. Verify its latest source, evidence links and review-ready status.
 4. Add the public video URL and your CALL-E account email. Use `https://callbridge-connect.onrender.com/` as the hosted demo address.
 5. Review eligibility, required fields and the rules yourself, then press the final submit button. Creating a GitHub PR does **not** submit Devpost for you.
 

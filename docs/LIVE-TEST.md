@@ -4,6 +4,10 @@ This procedure can lead to one real outbound call and use CALL-E credits. Do not
 
 ## Windows helper
 
+The submitted Aura pilot has already completed its authorized test; see [verified evidence](VERIFIED-AURA-CALLBACK.md). Do not place another call just to repeat that proof. For any separately authorized future Aura test, use [the private Aura setup](aura-pilot-setup.md): new requests must originate in the signed-in Aura form, not the legacy manual-creation flow below.
+
+The following helper is for a separate local SQLite pilot.
+
 First install dependencies and start the frontend as described in the root README. Stop the old Python backend with Ctrl+C in its terminal (do not stop unrelated programs).
 
 Open PowerShell in this repository and run:
@@ -12,7 +16,7 @@ Open PowerShell in this repository and run:
 ./scripts/start-live.ps1
 ```
 
-The script privately prompts for your CALL-E API key and a **separate** operator access code of at least 24 characters. Choose an access code you can enter again in the Settings screen. It also asks for your permitted test number in international format, e.g. `+234...` for Nigeria. It does not place a call.
+The script privately prompts for your CALL-E API key and a **separate** operator access code of at least 24 characters. Choose an access code you can enter again in the Settings screen. It also asks for your permitted test number in E.164 international format. A valid number format does not guarantee CALL-E supports its destination: confirm current provider coverage and use an owned/consenting, supported receiving number. It does not place a call.
 
 1. Open `http://localhost:3000/settings`. Enter only the separate operator access code — never your CALL-E API key.
 2. Create a new check-in with your real permitted number and recorded consent. Use fictional, nonsensitive project context.
